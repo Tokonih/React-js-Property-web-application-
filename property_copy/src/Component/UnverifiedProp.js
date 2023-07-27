@@ -27,6 +27,8 @@ function UnverifiedProp() {
         .then((resp)=>resp.json())
         .then((data)=>{
           setUnverified(data.data)
+          console.log(data.data.length)
+          localStorage.setItem("Total Unverified Properies", data.data.length)
           
           console.log(data)
         })
@@ -128,6 +130,12 @@ function UnverifiedProp() {
   
 
     // console.log(unverified)
+
+    let getUsers = localStorage.getItem("Total Users")
+    let getAgents = localStorage.getItem("Total Agents")
+    let TotalProperties = localStorage.getItem("Total Properties")
+    let TotalPropertyPrice = localStorage.getItem("Total Property Price")
+    let TotalUnverifiedProperies = localStorage.getItem("Total Unverified Properies")
   return (
     <div className="side-main">
       <div className="sidebar">
@@ -140,17 +148,17 @@ function UnverifiedProp() {
         <div className="totals">
           <div className="totalItems">
             <h1>
-              Total Unverified properties: <span>{}</span>
+              Total Unverified properties: <span className="TotalDetails">{TotalUnverifiedProperies}</span>
             </h1>{" "}
           </div>
           <div className="totalItems">
             <h1>
-              Total Agents: <span></span>
+              Total Agents: <span className="TotalDetails">{getAgents}</span>
             </h1>{" "}
           </div>
           <div className="totalItems">
             <h1>
-              Total Users: <span></span>
+              Total Users: <span className="TotalDetails">{getUsers}</span>
             </h1>{" "}
           </div>
         </div>

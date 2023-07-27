@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import Sidebar from "./sidebar"
+import { useNavigate } from "react-router-dom"
 
 function CreateAgent(){
     const [name, setName] = useState('')
@@ -8,6 +9,7 @@ function CreateAgent(){
     const [phone, SetPhone] = useState('')
     const [password, SetPassword] = useState('')
     const [err, SetErr] = useState(false)
+    let Navigate = useNavigate()
 
 
     const handleSubmit =(e)=>{
@@ -30,6 +32,7 @@ function CreateAgent(){
         // SetPassword('')
         console.log(createAgents)
         let getToken = localStorage.getItem('Merchant_Token')
+       
 
         fetch('http://property.reworkstaging.name.ng/v1/merchants/agents',{
             method: "POST",
@@ -40,8 +43,10 @@ function CreateAgent(){
         })
         .then((resp)=> resp.json())
         .then((data)=>{
-            alert('user created')
+            alert('Agent created')
             console.log(data)
+            Navigate("/Agents")
+
         })
         .catch((err)=> {
             console.log(err.message)

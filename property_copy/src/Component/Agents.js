@@ -12,6 +12,8 @@ function Agents(){
         .then((resp)=>resp.json())
         .then((data)=>{
             setAgents(data.data)
+            console.log(data.data.length)
+            localStorage.setItem("Total Agents", data.data.length)
         })
         .catch((err)=>{
             console.log(err.message)

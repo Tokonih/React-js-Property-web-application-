@@ -55,7 +55,7 @@ function CreateUser(){
             </div>
             <div className="side-container">
                 <div className="Dashboard">
-                   <h1 className="sidebar-title">Create User</h1>
+                   <h1 className="sidebar-title">Admin Login</h1>
                 </div>
                   <div>
                 <div className="user-form">

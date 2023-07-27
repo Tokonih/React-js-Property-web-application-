@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import Sidebar from "./sidebar"
+import { useNavigate } from "react-router-dom"
 
 function CreateProp(){
     const [name, setName] = useState('')
@@ -23,6 +24,7 @@ function CreateProp(){
     const [furnishing, setfurnishing] = useState('')
     const [disclaimer, setdisclaimer] = useState('')
     const [amenities, setamenities] = useState('')
+    const Navigate = useNavigate()
 
 
 
@@ -82,7 +84,8 @@ function CreateProp(){
           })
         .then((resp)=> resp.json())
         .then((data)=>{
-            alert('user created')
+            alert('Property created')
+            Navigate("/")
             console.log(data)
         })
         .catch((err)=> {

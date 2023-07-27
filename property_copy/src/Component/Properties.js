@@ -16,7 +16,8 @@ function Properties() {
         .then((data)=> {
             setverified(data.data)
             console.log(data.data)
-            console.log(verified.length)
+            (data.data.length)
+            localStorage.setItem("Total Properties", data.data.length)
           })
           .catch((err)=>{
             console.log(err.message)
@@ -29,6 +30,7 @@ function Properties() {
             const totalPrice = verified.map(property => parseInt(property.price.replace(/, /g,"" )))
             .reduce((a, b)=> a + b, 0)
             settotalPrice(totalPrice)
+            localStorage.setItem("Total Property Price", totalPrice)
             console.log(total)
           }
         }, [verified])          
@@ -48,7 +50,9 @@ function Properties() {
       })
       .catch((err)=> err.message)
     }
-    
+
+    let TotalProperties = localStorage.getItem("Total Properties")
+    let getUsers = localStorage.getItem("Total Users")  
   
   return (
     <div className="side-main">
@@ -60,9 +64,9 @@ function Properties() {
                    <h1 className="sidebar-title">Dashboard</h1>
                 </div>
                <div className="totals">
-                <div className="totalItems" ><h1>Total properties: <span style={{"color": "#0C54A6"}}>{}</span></h1> </div>
-                <div className="totalItems"><h1>Total Worth: <span style={{"color": "#0C54A6"}}>{total} Million</span></h1> </div>
-                <div className="totalItems"><h1>Total Users: <span></span></h1> </div>
+                <div className="totalItems" ><h1>Total properties: <span style={{"color": "#0C54A6"}}>{TotalProperties}</span></h1> </div>
+                <div className="totalItems"><h1>Total Worth: <span style={{"color": "#0C54A6"}}><br></br> {total} Million</span></h1> </div>
+                <div className="totalItems"><h1>Total Review: <span style={{"color": "#0C54A6"}}>{}</span></h1> </div>
                </div>
             <div>
 
