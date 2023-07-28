@@ -15,7 +15,7 @@ function Properties() {
         .then((resp)=> resp.json())
         .then((data)=> {
             setverified(data.data)
-            console.log(data.data)
+            console.log(data.data.length)
             (data.data.length)
             localStorage.setItem("Total Properties", data.data.length)
           })
@@ -36,20 +36,38 @@ function Properties() {
         }, [verified])          
         
     let merchantToken = localStorage.getItem('Merchant_Token')
-    const DeleteProperty= (id)=>{
-      fetch(`http://property.reworkstaging.name.ng/v1/properties/${id}`,{
-        method:"DELETE",
-        headers:{"authorization" : `Bearer ${merchantToken}`}
-      })
-      .then((resp)=> resp.json())
-      .then((data)=>{
-        const updateDelete = data.filter((del)=> del.id !== id)
-        setverified(updateDelete)
-        // console.log(del.id)
-        console.log(data)
-      })
-      .catch((err)=> err.message)
-    }
+        const DeleteProperty = (id)=>{
+          if(window.confirm("Do you want to delete this property?")){
+            fetch(`http://property.reworkstaging.name.ng/v1/properties/${id}`,{
+              method: "DELETE",
+              headers:{"authorization" : `Bearer ${merchantToken}`}
+            })
+            .then((data)=> data.json())
+            .then((resp)=>{
+              alert("Property Deleted")
+              const updatecart = resp.filter((cartitem)=> cartitem.id !== id)
+              setverified(updatecart)
+            }).catch((err)=>{
+              console.log(err.message)
+            })
+          }
+        }
+
+    // const DeleteProperty = (id)=>{
+    //   // alert('right')
+    //   fetch(`http://property.reworkstaging.name.ng/v1/properties/${id}`,{
+    //     method:"DELETE",
+    //     headers:{"authorization" : `Bearer ${merchantToken}`}
+    //   })
+    //   .then((resp)=> resp.json())
+    //   .then((data)=>{
+    //     const updateDelete = data.filter((del)=> del.id !== id)
+    //     setverified(updateDelete)
+    //     // console.log(del.id)
+    //     console.log(data)
+    //   })
+    //   .catch((err)=> err.message)
+    // }
 
     let TotalProperties = localStorage.getItem("Total Properties")
     let getUsers = localStorage.getItem("Total Users")  
@@ -86,7 +104,7 @@ function Properties() {
                         <h6>{property.address}</h6>
                         <h3>{property.state}, {property.country}</h3>
                         <h6><LuBed className="shower"/> {property.bedroom} beds <LuBath className="shower"/> {property.bathroom} baths</h6>
-                        <button className="editbtn">Edit</button> <button className="deletebtn" onClick={()=> DeleteProperty(property.id)}>Delete</button>
+                        <button className="editbtn">Edit</button> <button className="deletebtn" onClick={()=>DeleteProperty(property.id)}>Delete</button>
 
                         {/* <button className="see-detail">See details</button> */}
                     </div>
